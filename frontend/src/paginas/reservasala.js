@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Form, Button, Dropdown, Col } from 'react-bootstrap';
-import { useParams, useNavigate  } from "react-router-dom";
+import { Container, Row, Form, Button, Dropdown, Col, Image } from 'react-bootstrap';
+import { useParams, useNavigate, Link  } from "react-router-dom";
 import Cabecalho from '../componentes/cabecalho/cabecalho';
 import Rodape from '../componentes/Footer/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reservasService from '../services/reservasService';
+import clienteServices from '../services/clientesServices'; 
 import ComboSalas from '../componentes/combosalas/combosalas';
 import './style.css'
 
@@ -70,6 +71,11 @@ function Reservasala() {
       setFormData({ ...reserva, [name]: value });
     };
 
+    const clienteChange = (event) => {
+      const { name, value } = event.target;
+      setFormData({ ...reserva, [name]: value });
+    };
+
     const handleSelectChange = (value) => {
       setSelectedValue(value);      
       reserva.sala = value;
@@ -81,6 +87,28 @@ function Reservasala() {
       <div className='fundoreserva'>
         
           <Cabecalho />
+
+          <Button className='buttonsalvarcancelar' variant="secondary" size='lg' type="submit" name="disable">
+              cancel reserv
+          </Button>
+
+          <div className='formreserva'>
+          <Form>
+          <Form.Label>CPF:<Form.Control type="number" name="cpf" value={reserva.cpf} onChange={clienteChange}/></Form.Label>
+          
+          <Form.Label>Nome:<Form.Control type="text" name="nome" value={reserva.nome} onChange={clienteChange}/></Form.Label>
+          
+          </Form>
+
+          <Link to="/clientesmodal/:id">
+          <Button variant='success'>
+            CADASTRE-SE
+          </Button>
+          </Link>
+
+          </div>
+
+          <br></br>
         
           <Form className='formreserva' onSubmit={handleSubmit}>
 
