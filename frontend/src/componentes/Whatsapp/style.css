@@ -1,0 +1,11 @@
+.Whats {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.WhatsLogo{
+    position: relative;
+    height: 5vh;
+    padding: 5px;
+    top: 10px;
+}

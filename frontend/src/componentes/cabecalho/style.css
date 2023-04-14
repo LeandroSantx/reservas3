@@ -1,0 +1,29 @@
+.Cabecalho{
+    background-color: #29323c;
+}
+
+.list-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.nav {
+    justify-content: center;
+}
+
+.dl{
+    font-family: 'Bebas Neue', cursive;
+font-family: 'Fjalla One', sans-serif;
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+}
+.dl{
+    color: #fff;
+}
+.dl2{
+    color: #fff;
+}
