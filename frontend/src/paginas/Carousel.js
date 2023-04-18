@@ -39,7 +39,7 @@ function Carrossel() {
 
                        
                         <Carousel.Item key={item.id}>
-                          <Link to={`/salas/${item._id}`} >
+                          <Link to={`/salas/${item._id}`} state={{classe:'visually-hidden'}} >
                            <Card.Img key={index} src={item.img} alt="" className='image'/>
                           </Link>
                         

@@ -109,7 +109,7 @@ function Sala() {
       
         <Row>
        
-          <Link to="/salas/:id">
+          <Link to="/salas/:id" state={{classe:""}}>
           <Button>
             <Image
               src="https://cdn-icons-png.flaticon.com/512/4315/4315609.png"

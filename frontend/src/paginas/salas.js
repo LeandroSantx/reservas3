@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate, useLocation } from "react-router-dom";
 import Cabecalho from '../componentes/cabecalho/cabecalho';
 import Footer from '../componentes/Footer/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +14,8 @@ import salasService from '../services/salasServices';
 
 
 function Salas() {
-   
+  const location = useLocation();
+  const oculto = location.state.classe; 
   const { id } = useParams();
   const [sala, setFormData] = useState({});
   const history = useNavigate();
@@ -136,10 +137,10 @@ function Salas() {
     
         <br></br>
         </Form.Group>
-        <Button variant="dark" size='lg' type="submit" name="salvar">
+        <Button className={oculto} variant="dark" size='lg' type="submit" name="salvar">
           SALVAR
         </Button>
-        <Button className='buttonsalvarcancelar' variant="dark" size='lg' type="submit" name="cancelar">
+        <Button className={oculto} variant="dark" size='lg' type="submit" name="cancelar">
           CANCELAR
         </Button>
       </Form>

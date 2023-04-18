@@ -16,8 +16,17 @@ function Reservasala() {
   const [reserva, setFormData] = useState({});
   const [selectedValue, setSelectedValue] = useState('');
   const history = useNavigate();
+
+  if (id === 'inserir'){
+    var oculto = 'visually-hidden';
+  }else{
+    var oculto = '';
+  }
+
   
   useEffect(() => {
+    
+
       async function fetchFormData () {
       
       try {        
@@ -25,6 +34,7 @@ function Reservasala() {
         if (id !== 'inserir') {
         const response = await reservasService.getoneReservas(id);
         setFormData(response.data);
+        
         }
 
       } catch (error) {
@@ -35,11 +45,14 @@ function Reservasala() {
       fetchFormData();
     },[id]); 
 
+   
+    
+
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
         
-        
+        alert(event.nativeEvent.submitter.name)
         if (event.nativeEvent.submitter.name === "salvar") {
           alert(id);
           alert(reserva.sala);
@@ -53,12 +66,19 @@ function Reservasala() {
               alert('incluido com sucesso!');
                
           }
+          
           else {
               
               await reservasService.putReservas(id,reserva);
               alert('alterado com sucesso!');
               
           }
+          
+        }else if (event.nativeEvent.submitter.name === "cancela"){
+          reserva.status = 'C'; // indicar sala reservada
+          await reservasService.putReservas(id,reserva);
+            alert('cancelado com sucesso!');
+         
         }
       } catch (error) {
         console.error(error);
@@ -88,9 +108,9 @@ function Reservasala() {
         
           <Cabecalho />
 
-          <Button className='buttonsalvarcancelar' variant="secondary" size='lg' type="submit" name="disable">
-              cancel reserv
-          </Button>
+          
+        
+        
 
           <div className='formreserva'>
           <Form>
@@ -139,9 +159,12 @@ function Reservasala() {
               Salvar
             </Button> 
 
-            <Button className='buttonsalvarcancelar' variant="danger" size='lg' type="submit" name="cancelar">
+            <Button className='buttonsalvarcancelar' variant="danger" size='lg' type="submit" name="cancelar" >
               Cancelar
             </Button>
+            <Button className={oculto} variant="secondary" size='lg' type="submit" name="cancela" >
+              cancel reserv
+          </Button>
 </Form>
                 
         
