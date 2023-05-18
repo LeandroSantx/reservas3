@@ -12,9 +12,16 @@ import './style.css'
 
 
 function Reservasala() {
+
   const { id } = useParams();
+  
   const [reserva, setFormData] = useState({});
   const [selectedValue, setSelectedValue] = useState('');
+
+  const [cliente, setCliente] = useState({});
+  const [clientecpf, setClientecpf] = useState({});
+  const [clienteNome, setClienteNome] = useState({});
+
   const history = useNavigate();
 
   if (id === 'inserir'){
@@ -45,7 +52,21 @@ function Reservasala() {
       fetchFormData();
     },[id]); 
 
-   
+    useEffect(() => {
+      async function fetchClienteData() {
+        try {
+          if (clientecpf) {
+            console.log(clientecpf);
+            const clienteData = await clienteServices.getClienteByCPF(clientecpf);
+            setCliente(clienteData.data[0]);
+            setClienteNome(clienteData.data[0].nome);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      fetchClienteData();
+    }, [clientecpf]);
     
 
     const handleSubmit = async (event) => {
@@ -57,7 +78,7 @@ function Reservasala() {
           alert(id);
           alert(reserva.sala);
           reserva.funcionario = 'WEB - Internet';
-          reserva.cliente = 'Internet - WWW';
+          reserva.cliente = cliente;
           reserva.status = 'R'; // indicar sala reservada
           reserva.valortotal = 1;
           if (id === 'inserir') {
@@ -91,14 +112,13 @@ function Reservasala() {
       setFormData({ ...reserva, [name]: value });
     };
 
-    const clienteChange = (event) => {
-      const { name, value } = event.target;
-      setFormData({ ...reserva, [name]: value });
-    };
-
     const handleSelectChange = (value) => {
       setSelectedValue(value);      
       reserva.sala = value;
+    };
+
+    var clienteChange = (event) => {
+      setClientecpf(event.target.value);
     };
   
     
@@ -114,10 +134,16 @@ function Reservasala() {
 
           <div className='formreserva'>
           <Form>
-          <Form.Label>CPF:<Form.Control type="number" name="cpf" value={reserva.cpf} onChange={clienteChange}/></Form.Label>
+          <Form.Label>
+            CPF:
+            <Form.Control type="number" name="cpf" value={clientecpf} onChange={clienteChange} />
+          </Form.Label>
           
-          <Form.Label>Nome:<Form.Control type="text" name="nome" value={reserva.nome} onChange={clienteChange}/></Form.Label>
-          
+          <Form.Label>
+            Nome:
+            <Form.Control type="text" name="nome" value={clientecpf ? clienteNome : ""} />
+          </Form.Label>
+
           </Form>
 
           <Link to="/clientesmodal/:id">

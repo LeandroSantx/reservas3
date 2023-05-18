@@ -81,7 +81,7 @@ function Sala() {
                                 
                                 
                                 <td>
-                                  <Link to={`/salas/${row._id}`} >
+                                  <Link to={`/salas/${row._id}`} state={{classe:""}} >
                                     <Image
                                           src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
                                           alt="editar"

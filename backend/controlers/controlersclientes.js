@@ -50,3 +50,18 @@ exports.deleteCliente = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+exports.getcpfCliente = async (req, res) => {   
+  try {;
+    res.status(201).json(await cliente.modelsClient.find({cpf:req.params.id}));
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+exports.getClienteByCPF = async (cpf) => {
+  try {
+    const cliente = await modelsClient.findOne({ cpf: cpf});
+    return cliente;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

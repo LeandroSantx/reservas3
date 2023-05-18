@@ -20,6 +20,10 @@ var clienteService = {
   deleteCliente: async (id) => {
     var clienteAPI = axios.delete(`http://localhost:5000/apiclientes/`+id);
     return await clienteAPI;
+  },
+  getClienteByCPF: async (cpf) => { // Método getClienteByCPF adicionado
+    var clienteAPI = axios.get(`http://localhost:5000/apiclientes/cpf/` + cpf);
+    return await clienteAPI;
   }
 };
 
